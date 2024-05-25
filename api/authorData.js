@@ -3,13 +3,32 @@
 // const endpoint = client.databaseURL;
 
 // FIXME:  GET ALL AUTHORS
-const getAuthors = () => {};
+const getAuthors = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books.json?orderBy="author_id"&equalTo=${firebaseKey}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+     .then((response) => response.json())
+     .then((data) => resolve(Object.values(data)))
+     .catch(reject);
+  });
 
 // FIXME: CREATE AUTHOR
 const createAuthor = () => {};
 
 // FIXME: GET SINGLE AUTHOR
-const getSingleAuthor = () => {};
+const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject)=> {
+  fetch(`${endpoint}/authors/${firebaseKey}.json`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
 
 // FIXME: DELETE AUTHOR
 const deleteSingleAuthor = () => {};
