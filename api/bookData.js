@@ -1,10 +1,11 @@
-// import client from '../utils/client';
+import client from '../utils/client';
+
 // API CALLS FOR BOOKS
 
-// const endpoint = client.databaseURL;
+const endpoint = client.databaseURL;
 
 // TODO: GET BOOKS
-const getBooks = () => new Promise((resolve, reject) =>{
+const getBooks = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books.json`, {
     method: 'GET',
     headers: {
@@ -12,18 +13,12 @@ const getBooks = () => new Promise((resolve, reject) =>{
     },
   })
     .then((response) => response.json())
-    .then((data) =>{
-       if (data) {
-        resolve(object.values(data)));
-      } else {
-    resolve([]);
-    }
-  }) 
+    .then((data) => resolve(Object.values(data)))
     .catch(reject);
 });
 
 // TODO: DELETE BOOK
-const deleteBook = (firebasekey) => new Promise((resolve, reject) =>{
+const deleteBook = (firebasekey) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books/${firebasekey}.json`, {
     method: 'DELETE',
     headers: {
@@ -43,9 +38,9 @@ const getSingleBook = (firebaskey) => new Promise((resolve, reject) => {
       'Content-Type': 'application/json',
     },
   })
-   .then((response) => response.json())
-   .then((data) => resolve(data))
-   .catch(reject);
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
 });
 
 // TODO: CREATE BOOK
@@ -55,11 +50,11 @@ const createBook = (payload) => new Promise((resolve, reject) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body:JSON.stringify(payload),
+    body: JSON.stringify(payload),
   })
-   .then((response) => response.json())
-   .then((data) =>resolve(data))
-   .catch(reject);
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
 });
 
 // TODO: UPDATE BOOK
@@ -77,7 +72,7 @@ const updateBook = (payload) => new Promise((resolve, reject) => {
 });
 
 // TODO: FILTER BOOKS ON SALE
-const booksOnSale = () => new Promise((resolve, reject) =>{
+const booksOnSale = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books.json?orderBy="sale"&equalTo=true`, {
     method: 'GET',
     headers: {
@@ -85,7 +80,7 @@ const booksOnSale = () => new Promise((resolve, reject) =>{
     },
   })
     .then((response) => response.json())
-    .then((data) =>resolve(Object.values(data)))
+    .then((data) => resolve(Object.values(data)))
     .catch(reject);
 });
 

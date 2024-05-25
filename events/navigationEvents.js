@@ -1,3 +1,7 @@
+import { getAuthors } from '../api/authorData';
+import { booksOnSale, getBooks } from '../api/bookData';
+import { showAuthors } from '../pages/authors';
+import { showBooks } from '../pages/books';
 import { signOut } from '../utils/auth';
 
 // navigation events
