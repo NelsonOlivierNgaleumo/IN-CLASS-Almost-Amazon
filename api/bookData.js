@@ -18,8 +18,8 @@ const getBooks = () => new Promise((resolve, reject) => {
 });
 
 // TODO: DELETE BOOK
-const deleteBook = (firebasekey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/books/${firebasekey}.json`, {
+const deleteBook = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books/${firebaseKey}.json`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -31,8 +31,8 @@ const deleteBook = (firebasekey) => new Promise((resolve, reject) => {
 });
 
 // TODO: GET SINGLE BOOK
-const getSingleBook = (firebaskey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/books${firebaskey}.json`, {
+const getSingleBook = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books${firebaseKey}.json`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const createBook = (payload) => new Promise((resolve, reject) => {
 
 // TODO: UPDATE BOOK
 const updateBook = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/books/${payload.firebasekey}.json`, {
+  fetch(`${endpoint}/books/${payload.firebaseKey}.json`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
