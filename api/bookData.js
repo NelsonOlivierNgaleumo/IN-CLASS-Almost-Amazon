@@ -4,22 +4,84 @@
 // const endpoint = client.databaseURL;
 
 // TODO: GET BOOKS
-const getBooks = () => {};
+const getBooks = () => new Promise((resolve, reject) =>{
+  fetch(`${endpoint}/books.json`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(object.values(data)))
+    .catch(reject);
+});
 
 // TODO: DELETE BOOK
-const deleteBook = () => {};
+const deleteBook = (firebasekey) => new Promise((resolve, reject) =>{
+  fetch(`${endpoint}/books/${firebasekey}.json`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
 
 // TODO: GET SINGLE BOOK
-const getSingleBook = () => {};
+const getSingleBook = (firebaskey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books${firebaskey}.json`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+   .then((response) => response.json())
+   .then((data) => resolve(data))
+   .catch(reject);
+});
 
 // TODO: CREATE BOOK
-const createBook = () => {};
+const createBook = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books.json`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body:JSON.stringify(payload),
+  })
+   .then((response) => response.json())
+   .then((data) =>resolve(data))
+   .catch(reject);
+});
 
 // TODO: UPDATE BOOK
-const updateBook = () => {};
+const updateBook = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books/${payload.firebasekey}.json`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
 
 // TODO: FILTER BOOKS ON SALE
-const booksOnSale = () => {};
+const booksOnSale = () => new Promise((resolve, reject) =>{
+  fetch(`${endpoint}/books.json?orderBy="sale"&equalTo=true`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) =>resolve(Object.values(data)))
+    .catch(reject);
+});
 
 // TODO: STRETCH...SEARCH BOOKS
 
