@@ -35,8 +35,11 @@ const domEvents = () => {
     if (e.target.id.includes('delete-author-btn')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
-        console.warn('DELETE AUTHOR', e.target.id);
-        console.warn(e.target.id.split('--'));
+        const [, fierbasekey] = e.target.id.split('--');
+
+        deleteAuthorBooksRelationship(firebaseKey).then(() => {
+          getAuthors().then(showAuthors);
+        });
       }
     }
 

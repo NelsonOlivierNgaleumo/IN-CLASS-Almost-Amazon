@@ -12,7 +12,13 @@ const getBooks = () => new Promise((resolve, reject) =>{
     },
   })
     .then((response) => response.json())
-    .then((data) => resolve(object.values(data)))
+    .then((data) =>{
+       if (data) {
+        resolve(object.values(data)));
+      } else {
+    resolve([]);
+    }
+  }) 
     .catch(reject);
 });
 
