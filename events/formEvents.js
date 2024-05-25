@@ -1,4 +1,5 @@
-import { getBooks, updateBook } from "../api/bookData";
+import { createBook, getBooks, updateBook } from '../api/bookData';
+import { showBooks } from '../pages/books';
 
 const formEvents = () => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
@@ -14,10 +15,10 @@ const formEvents = () => {
         sale: document.querySelector('#sale').value,
       };
 
-      createBook(payload).then(({name}) => {
+      createBook(payload).then(({ name }) => {
         const patchPayload = { firebasekey: name };
 
-        updateBook(patchPayload).then(() =>{
+        updateBook(patchPayload).then(() => {
           getBooks().then(showBooks);
         });
       });
