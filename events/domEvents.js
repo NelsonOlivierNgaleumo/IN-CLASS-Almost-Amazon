@@ -5,7 +5,11 @@ const domEvents = () => {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
         console.warn('CLICKED DELETE BOOK', e.target.id);
-        console.warn(e.target.id.split('--'));
+        const [, fierbasekey] = e.target.id.split('--');
+
+        deleteBook(firebasekey).then(() => {
+          getBooks().then(showBooks);
+        });
       }
     }
 
