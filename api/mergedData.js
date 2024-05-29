@@ -1,7 +1,7 @@
 // for merged promises
 
-import { getSingleAuthor } from './authorData';
-import { getSingleBook } from './bookData';
+import { deleteSingleAuthor, getAuthorBooks, getSingleAuthor } from './authorData';
+import { deleteBook, getSingleBook } from './bookData';
 
 // Get data for viewbook
 const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
@@ -10,15 +10,26 @@ const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
       .then((authorObject) => resolve({ ...bookObject, authorObject }));
   }).catch(reject);
 });
+// GET AUTHOR DETAILS
+const getAuthorDetails = (firebaseKey) => new Promise((resolve, reject) => {
+  getSingleAuthor(firebaseKey)
+    .then((authorObject) => {
+      getAuthorBooks(firebaseKey)
+        .then((books) => {
+          resolve({ authorObject, books });
+        })
+        .catch(reject);
+    });
+});
 
-// const deleteAuthorBooksRelationship =(firebasekey) => new Promise((resolve, reject) = {
-//   getAuthorBooks(firebaseKey).then((authorBooksArray) => {
-//     const deleteBookPromises = authorBooksArray.map((book) => deleteBook(book.firebaseKey));
+const deleteAuthorBooksRelationship = (firebaseKey) => new Promise((resolve, reject) => {
+  getAuthorBooks(firebaseKey).then((authorBooksArray) => {
+    const deleteBookPromises = authorBooksArray.map((book) => deleteBook(book.firebaseKey));
 
-//     Promise.all(deleteBookPromises).then(( => {
-//       deleteSingleAuthor(firebasekey).then(resolve);
-//     });
-//   }).catch(reject);
-// });
+    Promise.all(deleteBookPromises).then(() => {
+      deleteSingleAuthor(firebaseKey).then(resolve);
+    });
+  }).catch(reject);
+});
 
-export default getBookDetails;
+export { getBookDetails, getAuthorDetails, deleteAuthorBooksRelationship };

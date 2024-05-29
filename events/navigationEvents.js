@@ -1,7 +1,7 @@
-import { getAuthors } from '../api/authorData';
-import { booksOnSale, getBooks } from '../api/bookData';
+import { getAuthors, getFavAuthors } from '../api/authorData';
+import { booksOnSale, getBooks, searchBooks } from '../api/bookData';
 import { showAuthors } from '../pages/authors';
-import { showBooks } from '../pages/books';
+import { emptyBooks, showBooks } from '../pages/books';
 import { signOut } from '../utils/auth';
 
 // navigation events
@@ -28,6 +28,10 @@ const navigationEvents = () => {
     getAuthors().then(showAuthors);
   });
 
+  document.querySelector('#authors-favs').addEventListener('click', () => {
+    getFavAuthors().then(showAuthors);
+  });
+
   // STRETCH: SEARCH
   document.querySelector('#search').addEventListener('keyup', (e) => {
     const searchValue = document.querySelector('#search').value.toLowerCase();
@@ -36,8 +40,15 @@ const navigationEvents = () => {
     // WHEN THE USER PRESSES ENTER, MAKE THE API CALL AND CLEAR THE INPUT
     if (e.keyCode === 13) {
       // MAKE A CALL TO THE API TO FILTER ON THE BOOKS
+      searchBooks(searchValue).then((filteredBooks) => {
       // IF THE SEARCH DOESN'T RETURN ANYTHING, SHOW THE EMPTY STORE
-      // OTHERWISE SHOW THE STORE
+        if (filteredBooks.length === 0) {
+          emptyBooks();
+          // OTHERWISE SHOW THE STORE
+        } else {
+          showBooks(filteredBooks); // show filtered books
+        }
+      });
 
       document.querySelector('#search').value = '';
     }
